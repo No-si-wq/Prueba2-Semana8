@@ -5,28 +5,28 @@ import cors from 'cors'
 import { db } from './config/db.js'
 import polizasRoutes from './routes/polizasRoutes.js'
 
-//Variable de Entorno
-dotenv.config();
+// Variables de Entorno
+dotenv.config()
 
-//Configuracion de la app
-const app = express();
+//Conguracion de la app
+const app = express()
 
 //Leer datos via body
-app.use(express.json());
+app.use(express.json())
 
 //Conectar a la base de datos
-db();
+db() 
 
 //Configuracion del CORS
-const whilelist = [process.env.FRONTEND_URL]
+const whitelist = [process.env.FRONTEND_URL]
 
 if(process.argv[2] === '--postman'){
-    whilelist.push(undefined)
+    whitelist.push(undefined)
 }
 
 const corsOption = {
     origin: function(origin, callback){
-        if(whilelist.includes(origin)){
+        if(whitelist.includes(origin) || !origin){
             //Permitir Conexion
             callback(null, true)
         }else{
@@ -37,13 +37,14 @@ const corsOption = {
 }
 app.use(cors(corsOption))
 
-//Definicion de la ruta
-app.use('/api/polizas', polizasRoutes);
+//Definicion de ruta
+app.use('/api/polizas', polizasRoutes)
 
-//Definicion del puerto
-const PORT = process.env.PORT || 4000;
+//Definicion de puerto
+const PORT = process.env.PROT || 4000
 
-//Ejecutar la app
+//ejecutar la app
 app.listen(PORT, () => {
-    console.log(colors.blue('Servidor corriendo en el puerto:', PORT));
-});
+    console.log(colors.blue('El Sevidor se esta ejecutando en el puerto:', PORT))
+})
+
