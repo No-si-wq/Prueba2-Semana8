@@ -1,15 +1,15 @@
 import dotenv from 'dotenv'
 import colors from 'colors'
 import { db } from '../config/db.js'
-import Services from '../models/Services.js'
-import { services } from './beautyServices.js'
+import Polizas from '../models/Polizas.js'
+import { polizas } from './SeguroPolizas.js' 
 
 dotenv.config()
 await db()
 
 async function seedDB() {
     try{
-        await Services.insertMany(services)
+        await Polizas.insertMany(polizas)
         console.log(colors.green.bold('Los datos se agregaron correctamente!!!'))
         process.exit()
     } catch (error) {
@@ -20,7 +20,7 @@ async function seedDB() {
 
 async function clearDB() {
     try{
-        await Services.deleteMany()
+        await Polizas.deleteMany()
         console.log(colors.red.bold('Los datos se eliminaron correctamente!!!'))
         process.exit()
     } catch (error) {
